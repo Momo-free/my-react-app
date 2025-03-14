@@ -109,19 +109,6 @@ class App extends React.Component {
         record.setState('editing', false);
     };
 
-     // 获取姓名
-    //  getName = (record) => {
-    //     if (!record) {
-    //         console.error('record is undefined');
-    //         return;
-    //     }
-    //     const name = record.get('name');
-    //     console.log('获取到的姓名:', name);
-    //     Modal.info({
-    //         title: '获取姓名',
-    //         content: `当前记录的姓名是: ${name}`,
-    //     });
-    // };
 
     // 修改操作
     updateUser = async (record) => {
