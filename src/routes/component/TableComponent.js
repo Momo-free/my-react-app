@@ -1,10 +1,10 @@
-import React from'react';
+import React from 'react';
 import { DataSet, Table, Modal, Button } from 'choerodon-ui/pro';
 
 const { Column } = Table;
 
 class App extends React.Component {
-        userDs = new DataSet({
+    userDs = new DataSet({
         primaryKey: 'id',
         autoQuery: true,
         pageSize: 5,
@@ -35,13 +35,13 @@ class App extends React.Component {
         },
         queryFields: [
             { name: 'active', type: 'boolean', label: '状态' },
-            { name: 'user', type:'string', label: '姓名', defaultValue: 'Hugh' },
-            { name: 'code', type:'string', label: '编码' },
+            { name: 'user', type: 'string', label: '姓名', defaultValue: 'Hugh' },
+            { name: 'code', type: 'string', label: '编码' },
         ],
         fields: [
             {
                 name: 'id',
-                type:'number',
+                type: 'number',
                 label: '编号',
                 required: true,
                 unique: true,
@@ -49,17 +49,17 @@ class App extends React.Component {
             },
             {
                 name: 'name',
-                type:'string',
+                type: 'string',
                 label: '姓名',
             },
             {
                 name: 'code',
-                type:'string',
+                type: 'string',
                 label: '编码',
             },
             {
                 name:'sex',
-                type:'string',
+                type: 'string',
                 label: '性别',
             },
             {
@@ -78,7 +78,8 @@ class App extends React.Component {
 
     // 新增操作
     createUser = () => {
-        this.props.history.push('/detail');
+        // 创建一条新记录
+        const newRecord = this.userDs.create({},0);
     };
 
     // 删除操作
@@ -96,9 +97,9 @@ class App extends React.Component {
         this.userDs.query();
     };
 
-    // 编辑操作，调用父组件的 onEdit 方法
+    // 编辑操作，跳转到 /details 页面
     editUser = (record) => {
-        this.props.onEdit(record);
+        this.props.history.push(`/detail`);
     };
 
     // 回退操作，这里假设是取消编辑状态，根据实际情况调整
@@ -184,7 +185,7 @@ class App extends React.Component {
                     header="操作"
                     width={150}
                     lock="right"
-                    render={(text, record) => (
+                    renderer={(text, record) => (
                         <Button onClick={() => this.editUser(record)}>编辑</Button>
                     )}
                 />
@@ -193,4 +194,4 @@ class App extends React.Component {
     }
 }
 
-export default App;
+export default App;    
