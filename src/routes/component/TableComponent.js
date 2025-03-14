@@ -159,7 +159,6 @@ class App extends React.Component {
         const buttons = [
             this.createButton,
             this.deleteButton,
-            "delete",
             this.queryButton,
             this.saveButton,
         ];
