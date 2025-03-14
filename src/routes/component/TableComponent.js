@@ -1,5 +1,5 @@
 import React from 'react';
-import { DataSet, Table, Modal, Button } from 'choerodon-ui/pro';
+import { DataSet, Table, Modal, Button, notification } from 'choerodon-ui/pro';
 import { Breadcrumb } from 'choerodon-ui';
 import { Link } from 'react-router-dom/cjs/react-router-dom.min';
 const { Column } = Table;
@@ -21,7 +21,7 @@ class App extends React.Component {
             },
             update: ({ data: [first] }) =>
                 first
-                   ? {
+                    ? {
                         url: `/dataset/user/mutations/${first.id}`,
                         data: first,
                         transformResponse() {
@@ -59,7 +59,7 @@ class App extends React.Component {
                 label: '编码',
             },
             {
-                name:'sex',
+                name: 'sex',
                 type: 'string',
                 label: '性别',
             },
@@ -80,7 +80,7 @@ class App extends React.Component {
     // 新增操作
     createUser = () => {
         // 创建一条新记录
-        const newRecord = this.userDs.create({},0);
+        const newRecord = this.userDs.create({}, 0);
     };
 
     // 删除操作
@@ -108,6 +108,20 @@ class App extends React.Component {
         record.reset();
         record.setState('editing', false);
     };
+
+     // 获取姓名
+    //  getName = (record) => {
+    //     if (!record) {
+    //         console.error('record is undefined');
+    //         return;
+    //     }
+    //     const name = record.get('name');
+    //     console.log('获取到的姓名:', name);
+    //     Modal.info({
+    //         title: '获取姓名',
+    //         content: `当前记录的姓名是: ${name}`,
+    //     });
+    // };
 
     // 修改操作
     updateUser = async (record) => {
@@ -157,7 +171,7 @@ class App extends React.Component {
         </Button>
     );
 
-    render() {
+      render() {
         const buttons = [
             this.createButton,
             this.deleteButton,
@@ -166,43 +180,53 @@ class App extends React.Component {
         ];
         return (
             <div>
-            <Breadcrumb style={{ textAlign: 'left' }}>
-            <Breadcrumb.Item>
-                <Link to="/table">table</Link>
-            </Breadcrumb.Item>
-            <Breadcrumb.Item>
-                <Link to="/homepage">homepage</Link>
-            </Breadcrumb.Item>
-            <Breadcrumb.Item>
-                <Link to="/detail">Detail</Link>
-            </Breadcrumb.Item>
-        </Breadcrumb>
-            <Table
-                buttons={buttons}
-                dataSet={this.userDs}
-                header="User"
-                style={{ height: 300 }}
-                rowNumber
-                pagination={{
-                    pageSizeEditable: true,
-                    showQuickJumper: true,
-                    pageSizeOptions: ['10', '20', '100', '200', '500', '1000'],
-                }}
-            >
-                <Column name="id" editor width={150} />
-                <Column name="name" editor width={150} />
-                <Column name="code" editor width={150} />
-                <Column name="sex" editor width={150} />
-                <Column name="active" editor width={100} />
-                <Column
-                    header="操作"
-                    width={150}
-                    lock="right"
-                    renderer={(text, record) => (
-                        <Button onClick={() => this.editUser(record)}>编辑</Button>
-                    )}
-                />
-            </Table></div>
+                <Breadcrumb style={{ textAlign: 'left' }}>
+                    <Breadcrumb.Item>
+                        <Link to="/table">table</Link>
+                    </Breadcrumb.Item>
+                    <Breadcrumb.Item>
+                        <Link to="/homepage">homepage</Link>
+                    </Breadcrumb.Item>
+                    <Breadcrumb.Item>
+                        <Link to="/detail">Detail</Link>
+                    </Breadcrumb.Item>
+                </Breadcrumb>
+                <Table
+                    buttons={buttons}
+                    dataSet={this.userDs}
+                    header="用户列表"
+                    style={{ height: 300 }}
+                    rowNumber
+                    pagination={{
+                        pageSizeEditable: true,
+                        showQuickJumper: true,
+                        pageSizeOptions: ['10', '20', '100', '200', '500', '1000'],
+                    }}
+                >
+                    <Column name="id" editor width={150} />
+                    <Column name="name" editor width={150} />
+                    <Column name="code" editor width={150} />
+                    <Column name="sex" editor width={150} />
+                    <Column name="active" editor width={100} />
+                    <Column
+                        header="操作"
+                        width={150}
+                        lock="right"
+                        renderer={(text, record) => {
+                            console.log('renderer record:', record); 
+                            return (
+                                <>
+                                    <Button onClick={() => this.modifyName(record)}>修改名称</Button>
+                                    <Button onClick={() => notification.success({
+                                        message:`当前姓名${record?.get('name')}`,
+                                    })}>获取姓名</Button>
+                                    <Button onClick={() => this.editUser(record)}>编辑</Button>
+                                </>
+                            );
+                        }}
+                    />
+                </Table>
+            </div>
         );
     }
 }
