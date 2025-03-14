@@ -1,6 +1,7 @@
 import React from 'react';
 import { DataSet, Table, Modal, Button } from 'choerodon-ui/pro';
-
+import { Breadcrumb } from 'choerodon-ui';
+import { Link } from 'react-router-dom/cjs/react-router-dom.min';
 const { Column } = Table;
 
 class App extends React.Component {
@@ -164,6 +165,18 @@ class App extends React.Component {
             this.saveButton,
         ];
         return (
+            <div>
+            <Breadcrumb style={{ textAlign: 'left' }}>
+            <Breadcrumb.Item>
+                <Link to="/table">table</Link>
+            </Breadcrumb.Item>
+            <Breadcrumb.Item>
+                <Link to="/homepage">homepage</Link>
+            </Breadcrumb.Item>
+            <Breadcrumb.Item>
+                <Link to="/detail">Detail</Link>
+            </Breadcrumb.Item>
+        </Breadcrumb>
             <Table
                 buttons={buttons}
                 dataSet={this.userDs}
@@ -189,7 +202,7 @@ class App extends React.Component {
                         <Button onClick={() => this.editUser(record)}>编辑</Button>
                     )}
                 />
-            </Table>
+            </Table></div>
         );
     }
 }

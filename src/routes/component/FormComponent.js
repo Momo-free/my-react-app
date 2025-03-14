@@ -1,8 +1,23 @@
 import React from 'react';
-// 完整导入所需组件
 import { DataSet, Form, TextField, SelectBox, Switch, Button, Select } from 'choerodon-ui/pro';
+import { Breadcrumb } from 'choerodon-ui';
+import { Link } from 'react-router-dom';
 
 const { Option } = Select;
+
+const BreadcrumbComponent = () => (
+    <Breadcrumb style={{ textAlign: 'left' }}>
+        <Breadcrumb.Item>
+            <Link to="/table">table</Link>
+        </Breadcrumb.Item>
+        <Breadcrumb.Item>
+            <Link to="/homepage">homepage</Link>
+        </Breadcrumb.Item>
+        <Breadcrumb.Item>
+            <Link to="/detail">Detail</Link>
+        </Breadcrumb.Item>
+    </Breadcrumb>
+);
 
 class FormComponent extends React.Component {
     componentDidMount() {
@@ -13,7 +28,7 @@ class FormComponent extends React.Component {
     }
 
     ds = new DataSet({
-        autoQuery: false, // 避免自动查询，根据传递的数据加载
+        autoQuery: false, 
         fields: [
             { name: 'id', type: 'string' },
             { name: 'name', type: 'string', label: '姓名', required: true },
@@ -25,21 +40,24 @@ class FormComponent extends React.Component {
 
     render() {
         return (
-            <Form dataSet={this.ds} style={{ width: '4rem' }} labelWidth="auto" action='https://hzero-test.open.hand-china.com/mock/guide/user'>
-                <TextField name="name" />
-                <TextField name="code" />
-                <SelectBox name="sex">
-                    <Option value="M">男</Option>
-                    <Option value="F">女</Option>
-                </SelectBox>
-                <Switch name="active" />
-                <div>
-                    <Button type="submit" >提交</Button>
-                    <Button type="reset" style={{ marginLeft: 8 }}>重置</Button>
-                </div>
-            </Form>
+            <div>
+                <BreadcrumbComponent />
+                <Form dataSet={this.ds} style={{ width: '4rem' }} labelWidth="auto" action='https://hzero-test.open.hand-china.com/mock/guide/user'>
+                    <TextField name="name" />
+                    <TextField name="code" />
+                    <SelectBox name="sex">
+                        <Option value="M">男</Option>
+                        <Option value="F">女</Option>
+                    </SelectBox>
+                    <Switch name="active" />
+                    <div>
+                        <Button type="submit" >提交</Button>
+                        <Button type="reset" style={{ marginLeft: 8 }}>重置</Button>
+                    </div>
+                </Form>
+            </div>
         );
     }
 }
 
-export default FormComponent;
+export default FormComponent;    

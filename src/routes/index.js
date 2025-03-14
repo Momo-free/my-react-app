@@ -3,8 +3,24 @@ import { BrowserRouter as Router, Route, Switch, useHistory } from 'react-router
 import { Layout, Menu, Icon } from 'choerodon-ui';
 import TableComponent from './component/TableComponent';
 import FormComponent from './component/FormComponent';
+import { Breadcrumb } from 'choerodon-ui';
+import { Link } from 'react-router-dom';
 
 const { Header } = Layout;
+
+const BreadcrumbComponent = () => (
+    <Breadcrumb style={{ textAlign: 'left' }}>
+        <Breadcrumb.Item>
+            <Link to="/table">table</Link>
+        </Breadcrumb.Item>
+        <Breadcrumb.Item>
+            <Link to="/homepage">homepage</Link>
+        </Breadcrumb.Item>
+        <Breadcrumb.Item>
+            <Link to="/detail">Detail</Link>
+        </Breadcrumb.Item>
+    </Breadcrumb>
+);
 
 function Routes() {
     const history = useHistory();
@@ -34,9 +50,19 @@ function Routes() {
                                 <Route path="/detail" render={(props) => {
                                     const { state } = props.location;
                                     const data = state ? state.data : null;
-                                    return <FormComponent ds={{ data: data ? [data] : [] }} />;
+                                    return (
+                                        <div>
+                                            <BreadcrumbComponent />
+                                            <FormComponent ds={{ data: data ? [data] : [] }} />
+                                        </div>
+                                    );
                                 }} />
-                                <Route path="/table" render={(props) => <TableComponent {...props} onEdit={handleEdit} />} />
+                                <Route path="/table" render={(props) => (
+                                    <div>
+                                        <BreadcrumbComponent />
+                                        <TableComponent {...props} onEdit={handleEdit} />
+                                    </div>
+                                )} />
                             </Switch>
                         </Router>
                     </div>
@@ -46,4 +72,4 @@ function Routes() {
     );
 }
 
-export default Routes;
+export default Routes;    
