@@ -40,9 +40,9 @@ function App() {
                             <Router>  
                                 <div className="App">  
                                     <Switch>  
-                                        <Route path="/" exact component={HomePage} />  
+                                        <Route path="/homepage" exact component={HomePage} />  
                                         <Route path="/detail" component={FormComponent} />
-                                        <Route path="/table" component={TableComponent} /> 
+                                        <Route path="/" component={TableComponent} /> 
                                     </Switch>  
                                 </div>  
                             </Router>  

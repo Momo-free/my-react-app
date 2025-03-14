@@ -34,7 +34,7 @@ class FormComponent extends React.Component {
                 </SelectBox>
                 <Switch name="active" />
                 <div>
-                    <Button type="submit">提交</Button>
+                    <Button type="submit" >提交</Button>
                     <Button type="reset" style={{ marginLeft: 8 }}>重置</Button>
                 </div>
             </Form>
