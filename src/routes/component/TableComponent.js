@@ -199,7 +199,7 @@ class App extends React.Component {
                         header="操作"
                         width={150}
                         lock="right"
-                        renderer={(text, record) => {
+                        renderer={({text, record}) => {
                             console.log('renderer record:', record); 
                             return (
                                 <>
